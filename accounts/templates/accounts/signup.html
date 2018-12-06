@@ -1,0 +1,33 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+
+
+<body>
+
+
+  <div class="row">
+    <div class="Absolute-Center is-Responsive">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <form action="" id="loginForm">
+          <div class="form-group input-group">
+            <input class="form-control" type="text" name='username' placeholder="username"/>
+          </div>
+          <div class="form-group input-group">
+            <input class="form-control" type="password" name='password' placeholder="password"/>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-def btn-block">Sign Up!</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+{% endblock %}
