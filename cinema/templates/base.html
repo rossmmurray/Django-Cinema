@@ -23,37 +23,37 @@
 
 
 <div class="bg">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">romurr cinema</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <div class="navbar-nav ml-auto">
+                   <a class="nav-item nav-link" href="http://www.linkedin.com/in/ross-m-murray">Logout</a>
+                   <a class="nav-item nav-link" href="{% url 'index' %}">"{% static 'films/css/bootstrap_local.css' %}"</a>
+               </div>
+            </div>
+        </div>
+    </nav>
+
 
     <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}">romurr cinema</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <br/>
+        {% block content %}
+        {% endblock %}
+        <br/>
+    </div>
 
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           <div class="navbar-nav ml-auto">
-               <a class="nav-item nav-link" href="http://www.linkedin.com/in/ross-m-murray">Logout</a>
-               <a class="nav-item nav-link" href="{% url 'index' %}">"{% static 'films/css/bootstrap_local.css' %}"</a>
-           </div>
+    <footer class="text-muted">
+        <div class="container text-center">
+            <p>© Ross Murray {% now "Y" %}</p>
         </div>
-    </div>
-</nav>
-
-
-<div class="container">
-    <br/>
-    {% block content %}
-    {% endblock %}
-    <br/>
-</div>
-
-<footer class="text-muted">
-    <div class="container text-center">
-        <p>© Ross Murray {% now "Y" %}</p>
-    </div>
-</footer>
+    </footer>
 
 </div>
 
