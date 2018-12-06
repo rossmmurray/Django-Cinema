@@ -1,6 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Film
 
 
 def index(request):
-	return HttpResponse("You're at the index of films")
+	films = Film.objects
+	return render(request, 'films/home.html', {'films': films})
+
+
+# def home(request):
+# 	jobs = Job.objects
+# 	return render(request, 'jobs/home.html', {'jobs': jobs})
