@@ -12,17 +12,25 @@ h1 {
     position: relative;
     width: 600px;
     margin:0px auto;
+    background-color: #138496;
 }
 
 .Absolute-Center {
     margin: auto;
     position: relative;
     width: 50%;
-    height: 50%;
+    height: 30%;
     min-width: 200px;
     max-width: 400px;
-    padding-top: 15%;
-    padding-bottom: 15%;
+    padding-top: 4%;
+    padding-bottom: 0%;
+
+}
+
+#logo {
+    /*min-width: 100%;*/
+    width: 600px;
+    max-width: 100%;
 }
 
 

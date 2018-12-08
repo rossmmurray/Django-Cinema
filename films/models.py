@@ -11,3 +11,11 @@ class Film(models.Model):
 
 	def summary(self):
 		return f'{self.description[:50]}...'
+
+
+class Screening(models.Model):
+	film = models.ForeignKey(Film, on_delete=models.CASCADE)
+	date_time = models.DateTimeField()
+
+	def __str__(self):
+		return f'{self.film.title} at {self.date_time: %I:%M %p} on {self.date_time: %d/%m/%y }'
