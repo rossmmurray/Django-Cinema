@@ -4,28 +4,47 @@
 
 {% block content %}
 
+    <div class="container col-md-6">
 
-<h1 class="heading">Choose your film...</h1>
+            <h1 class="heading">Select date...</h1>
 
-<div class="album py-5 bg-transparent">
-    <div class="container">
+        <div class="input-group">
 
-        <div class="row">
-
-            {% for film in films.all %}
-            <div class="col-md-4">
-                <div class="card bg-dark mb-4 text-light">
-                    <img class="card-img" src="{{ film.image.url }}" height=300 width=300 style="max-height: 100%; max-width: 100%; display: block;" />
-                        <div class="card-body">
-                            <p class="card-text">{{ film.title }}</p>
-                        </div>
-                </div>
+            <select class="custom-select" id="film_date">
+                {% for screening_date in screening_dates %}
+                    <option>{{ screening_date }}</option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-info btn-select" type="button">Ok</button>
             </div>
-            {% endfor %}
-
         </div>
     </div>
-</div>
+
+
+
+    {#    <h1 class="heading">Choose your film...</h1>#}
+    {##}
+    {#    <div class="album py-5 bg-transparent">#}
+    {#        <div class="container">#}
+    {##}
+    {#            <div class="row">#}
+    {##}
+    {#                {% for film in films.all %}#}
+    {#                    <div class="col-md-4">#}
+    {#                        <div class="card bg-dark mb-4 text-light">#}
+    {#                            <img class="card-img" src="{{ film.image.url }}" height=300 width=300#}
+    {#                                 style="max-height: 100%; max-width: 100%; display: block;"/>#}
+    {#                            <div class="card-body">#}
+    {#                                <p class="card-text">{{ film.title }}</p>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                {% endfor %}#}
+    {##}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 
 {% endblock %}
 

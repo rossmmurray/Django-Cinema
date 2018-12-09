@@ -38,6 +38,11 @@ h1 {
 body, html {
   height: 100%;
 }
+
+.btn-select {
+    width: 75px;
+}
+
 .bg {
   /* The image used */
   background-image: url('/static/accounts/abstract-analog-art-390089.jpeg');

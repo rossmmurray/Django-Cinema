@@ -22,6 +22,12 @@ class Screening(models.Model):
 	def __str__(self):
 		return f'{self.film.title} at {self.date_time: %I:%M %p} on {self.date_time: %d/%m/%y }'
 
+	def get_date(self):
+		return self.date_time.date()
+
+	# def unique_dates(self):
+	# 	dates = Screening.objects.all().distinct(self.get_date())
+
 
 class Seat(models.Model):
 	seat_no = models.IntegerField()
@@ -37,6 +43,6 @@ def create_seats(sender, instance, created, *args, **kwargs):
 	"""Create all seats with Availability=True on creation of a screening."""
 	if created:
 		for i in range(36):
-			new_seat = Seat(seat_no=i+1, screening_id=instance.id, available=True)
+			new_seat = Seat(seat_no=i+1, screening=instance, available=True)
 			new_seat.save()
 			print(new_seat)

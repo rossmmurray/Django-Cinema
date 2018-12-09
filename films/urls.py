@@ -20,4 +20,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('screenings/', views.screening_choice, name='screening_choice')
 ]
