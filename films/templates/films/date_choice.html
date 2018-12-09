@@ -5,20 +5,22 @@
 {% block content %}
 
     <div class="container col-md-6">
+        <h1 class="heading">Select date...</h1>
 
-            <h1 class="heading">Select date...</h1>
-
-        <div class="input-group">
-
-            <select class="custom-select" id="film_date">
-                {% for screening_date in screening_dates %}
-                    <option>{{ screening_date }}</option>
-                {% endfor %}
-            </select>
-            <div class="input-group-append">
-                <button class="btn btn-info btn-select" type="button">Ok</button>
+        <form method="POST" action="{% url 'index' %}" id="index">
+            {% csrf_token %}
+            <div class="input-group">
+                <select class="custom-select" id="film_date" name="screening_date">
+                    {% for screening_date in screening_dates %}
+                        <option value="{{ screening_date }}">{{ screening_date|date:"Y-m-d" }}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-info btn-select">Ok</button>
+                </div>
             </div>
-        </div>
+        </form>
+
     </div>
 
 
