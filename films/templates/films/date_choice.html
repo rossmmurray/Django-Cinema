@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <form action="/screening-date-choice" method="POST">
+    <form action="/screenings/" method="POST">
         {% csrf_token %}
         {{ form }}
     <input type="submit" value="Submit">

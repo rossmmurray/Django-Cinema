@@ -6,8 +6,11 @@ from django.http import HttpResponseRedirect
 
 
 def date_choice(request):
+	screenings = Screening.objects.distinct('date_time__date')
+	# print(screenings)
 	if request.method == 'POST':
 		form = ScreeningDateForm(request.POST)
+		print('\n this is a form\n', form)
 		if form.is_valid():
 			return HttpResponseRedirect('accounts/login.html')
 	else:
