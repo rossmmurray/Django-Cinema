@@ -21,8 +21,8 @@ from cinema import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('films/', include('films.urls')),
+    # path('films/', include('films.urls')),
 	path('', include('films.urls')),
-	path('accounts/', include('accounts.urls'))
+	path('', include('accounts.urls'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

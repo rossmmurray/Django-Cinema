@@ -21,7 +21,7 @@ def signup(request):
 				user = User.objects.create_user(request.POST['username'], password=request.POST['password'])
 				print("trying to sign up")
 				auth.login(request, user)
-				return redirect('index')
+				return redirect('date_choice')
 			# if user enters empty string
 			except ValueError:
 				return render(request, 'accounts/signup.html', {'error': 'You must enter a reasonable username. No empty strings.'})
@@ -36,7 +36,7 @@ def login(request):
 		user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user is not None:
 			auth.login(request, user)
-			return redirect('index')
+			return redirect('date_choice')
 		else:
 			return render(request, 'accounts/login.html', {'error': 'username or password is wrong'})
 	else:

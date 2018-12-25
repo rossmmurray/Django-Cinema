@@ -1,0 +1,31 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1 class="heading">Choose your screening...</h1>
+
+    <div class="album py-5 bg-transparent">
+        <div class="container">
+
+            <div class="row">
+
+                {% for film in films.all %}
+                    <div class="col-md-4">
+                        <div class="card bg-dark mb-4 text-light">
+                            <img class="card-img" src="{{ film.image.url }}" height=300 width=300
+                                 style="max-height: 100%; max-width: 100%; display: block;"/>
+                            <div class="card-body">
+                                <p class="card-text">{{ film.title }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

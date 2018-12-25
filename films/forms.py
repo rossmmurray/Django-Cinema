@@ -9,10 +9,10 @@ class ScreeningDateForm(forms.Form):
 
 	# print('\nthis is a list:\n', screenings_list)
 
-	# covert querset into right format for ChoiceField
+	# convert queryset into right format for ChoiceField
 	date_list = []
 	for key, value_tuple in enumerate(screenings_list):
-		date_list.append((key, value_tuple[0]))
+		date_list.append((value_tuple[0], value_tuple[0]))
 
 
 	# print(date_list)
