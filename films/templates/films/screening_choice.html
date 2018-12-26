@@ -11,13 +11,14 @@
 
             <div class="row">
 
-                {% for film in films.all %}
+                {% for screening in screenings.all %}
                     <div class="col-md-4">
                         <div class="card bg-dark mb-4 text-light">
-                            <img class="card-img" src="{{ film.image.url }}" height=300 width=300
+                            <img class="card-img" src="{{ screening.film.image.url }}" height=300 width=300
                                  style="max-height: 100%; max-width: 100%; display: block;"/>
                             <div class="card-body">
-                                <p class="card-text">{{ film.title }}</p>
+                                <p class="card-text">{{ screening }}</p>
+                                <a href="#" class="btn btn-primary">Book</a>
                             </div>
                         </div>
                     </div>
