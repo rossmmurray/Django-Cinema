@@ -18,7 +18,7 @@
                                  style="max-height: 100%; max-width: 100%; display: block;"/>
                             <div class="card-body">
                                 <p class="card-text">{{ screening }}</p>
-                                <a href="#" class="btn btn-primary">Book</a>
+                                <a href="{% url 'book_seats' screening.id %}" class="btn btn-primary">Book</a>
                             </div>
                         </div>
                     </div>

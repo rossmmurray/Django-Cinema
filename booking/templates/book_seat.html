@@ -6,8 +6,33 @@
 
     {% load crispy_forms_tags %}
 
-    <div class="container col-md-6">
 
+    <div class="container">
+      <div class="h3 pb-3 ">
+          <h3>Please choose a seat...</h3>
+    </div>
+
+        <table class="flex-fill container-fluid bg-">
+
+        <tbody>
+        {% for row in seat_layout %}
+            <tr>
+            {% for seat in row %}
+                    <td class="p-1 px-1">
+                        <button type="button" class="container-fluid btn btn-{{ seat.available|yesno:"info,danger"}} mx-1 py-2">
+                            <span style="font-size: x-large;">{{ seat.seat_no }} </span>
+                        </button>
+                    </td>
+            {% endfor %}
+            </tr>
+
+        {% endfor %}
+        </tbody>
+
+        </table>
+    <div>
+
+    </div>
     </div>
 
 

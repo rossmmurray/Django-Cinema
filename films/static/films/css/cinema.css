@@ -6,6 +6,7 @@
 h1 {
     text-align: left;
     font-style: italic;
+    text-shadow: 0px 0px 3px white;
 }
 
 .registration-container{
@@ -53,5 +54,9 @@ body, html {
   background-position: center;
   background-repeat: repeat-y;
   background-size: cover;
+}
+
+h3 {
+    text-shadow: 0px 0px 3px white;
 }
 
