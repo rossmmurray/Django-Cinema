@@ -20,5 +20,5 @@ from . import views
 
 urlpatterns = [
     path('dates/', views.date_choice, name='date_choice'),
-    path('screenings/', views.screening_choice, name='screening_choice')
+    path('', views.screening_choice, name='screening_choice')
 ]

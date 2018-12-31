@@ -6,33 +6,54 @@
 
     {% load crispy_forms_tags %}
 
-
     <div class="container">
-      <div class="h3 pb-3 ">
-          <h3>Please choose a seat...</h3>
-    </div>
+        <div class="h3 pb-3 ">
+            <h3>Please choose a seat...</h3>
+        </div>
+
+        {# show success or error message#}
+        {% if booked == False %}
+            <div class="alert alert-danger text-center">
+                {{ info }}
+            </div>
+        {% elif booked == True %}
+            <div class="alert alert-success text-center">
+                {{ info }}
+            </div>
+        {% endif %}
 
         <table class="flex-fill container-fluid bg-">
 
-        <tbody>
-        {% for row in seat_layout %}
-            <tr>
-            {% for seat in row %}
-                    <td class="p-1 px-1">
-                        <button type="button" class="container-fluid btn btn-{{ seat.available|yesno:"info,danger"}} mx-1 py-2">
-                            <span style="font-size: x-large;">{{ seat.seat_no }} </span>
-                        </button>
-                    </td>
-            {% endfor %}
-            </tr>
+            <tbody>
+            {% for row in seat_layout %}
+                <tr>
+                    {% for seat in row %}
+                        <td class="p-1 px-1">
+                            <form method="POST" action="{% url 'book_seats' seat.screening_id %}">
+                                {% csrf_token %}
+                                <button type="submit" name="selected_seat" value="{{ seat.id }}"
+                                        class="container-fluid btn btn-{{ seat.available|yesno:"info,danger" }} mx-1 py-2">
+                                    {{ seat.seat_no }}
+                                </button>
+                            </form>
+                        </td>
+                    {% endfor %}
+                </tr>
 
-        {% endfor %}
-        </tbody>
+            {% endfor %}
+            </tbody>
 
         </table>
-    <div>
 
-    </div>
+        {#          TODO: add the cinema screen box below#}
+        <br/>
+        <div class="border border-dark text-center rounded">
+
+            <h3 class="font-italic text-black-50">
+                cinema screen
+            </h3>
+        </div>
+
     </div>
 
 

@@ -8,7 +8,7 @@
 
     <div class="container col-md-6">
 
-        <form action="/screenings/" method="POST">
+        <form action="{% url 'screening_choice' %}" method="POST">
             {% csrf_token %}
             {{ form }}
             <div>

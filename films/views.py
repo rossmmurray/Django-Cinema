@@ -25,6 +25,7 @@ def date_choice(request):
 		form = ScreeningDateForm
 	'''
 
+	# TODO: get rid of this stupid form and just put the logic in the view
 	form = ScreeningDateForm
 	return render(request, 'films/date_choice.html', {'form': form})
 
