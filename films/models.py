@@ -7,6 +7,7 @@ from cinema.cinema_logger import logger
 from film_services import screening_overlap
 
 
+# TODO: make film titles unique
 class Film(models.Model):
 	title = models.CharField(max_length=200)
 	description = models.TextField()

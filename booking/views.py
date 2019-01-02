@@ -18,7 +18,7 @@ def book_seat(request, screening_id):
 		selected_seat = Seat.objects.get(id=selected_seat_id)
 
 		# make seat unavailable to make booking or show error
-		booked = make_booking(selected_seat)
+		booked = make_booking(selected_seat, request)
 		if booked:
 			info = f'Success! Booked {selected_seat}'
 		else:

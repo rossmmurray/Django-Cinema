@@ -1,7 +1,10 @@
-# helper functions for booking app
+""" Helper functions for booking app"""
+
 from films.models import Seat
 from django.db.models.query import QuerySet
 from typing import Iterable, List
+from booking.models import Booking
+from django.http.request import HttpRequest
 
 
 def create_seat_layout(seats: QuerySet, seat_columns: int) -> List:
@@ -19,11 +22,20 @@ def create_seat_layout(seats: QuerySet, seat_columns: int) -> List:
 	return seat_layout
 
 
-def make_booking(selected_seat: Seat):
-	"""Make seat unavailable to make booking or show error"""
+def make_booking(selected_seat: Seat, request: HttpRequest):
+	"""Create booking record and make seat unavailable"""
+
 	if selected_seat.available:
+
+		# make seat unavailable
 		selected_seat.available = False
 		selected_seat.save()
+
+		# create new booking record
+		new_booking = Booking(seat=selected_seat, user=request.user, cancelled=False)
+		new_booking.save()
+		print("Created new booking:", new_booking)
+
 		return True
 	else:
 		return False
