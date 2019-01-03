@@ -13,6 +13,9 @@ def screening_overlap(start_time: datetime, all_screenings: QuerySet):
 	# search for screenings between time
 	clashing_films = all_screenings.filter(date_time__range=(screening_start_time, screening_end_time))
 
+	# make into list so that empty structure resolves to boolean False
+	# clashing_films = list(clashing_films)
+
 	logger.info(f'clashing films are: {clashing_films}')
 
 	return clashing_films

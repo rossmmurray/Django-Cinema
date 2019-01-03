@@ -9,7 +9,7 @@ from film_services import screening_overlap
 
 # TODO: make film titles unique
 class Film(models.Model):
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=200, unique=True)
 	description = models.TextField()
 	image = models.ImageField(upload_to='images/')
 
@@ -25,13 +25,15 @@ class Screening(models.Model):
 	date_time = models.DateTimeField()
 
 	def __str__(self):
-		return f'{self.film.title} at {self.date_time: %I:%M %p} on {self.date_time: %d/%m/%y }'
+		"""Nicely formatted representation of screenings"""
+		return str(f'{self.film.title} at {self.date_time: %I:%M %p} on {self.date_time: %d/%m/%y }')
 
 	def get_date(self):
+		"""Helper function to get date"""
 		return self.date_time.date()
 
 	def clean(self):
-		"""Validation: automatically run when screening objects are created"""
+		"""Validation: automatically run when screening objects are modified/created"""
 
 		# screenings must be in the future
 		if self.date_time < timezone.now():
@@ -39,6 +41,7 @@ class Screening(models.Model):
 
 		# screenings cannot overlap
 		overlapping_screenings = screening_overlap(self.date_time, Screening.objects.all())
+		# test = overlapping_screenings[0]
 		if overlapping_screenings:
 			error_message = f"The screening clashed with the existing screening: {overlapping_screenings[0]}. The " \
 							f"screening wasn't added."

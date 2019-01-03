@@ -124,7 +124,7 @@ STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, 'films/static'),
 	os.path.join(BASE_DIR, 'accounts/static')
 ]
-print(STATICFILES_DIRS)
+# print(STATICFILES_DIRS)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -132,7 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-print(MEDIA_ROOT, '\n', MEDIA_URL, '\n', STATIC_ROOT, '\n')
+# print(MEDIA_ROOT, '\n', MEDIA_URL, '\n', STATIC_ROOT, '\n')
 
 try:
 	from .local_settings import *

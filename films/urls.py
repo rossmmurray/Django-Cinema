@@ -19,6 +19,7 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.screening_choice, name='screening_choice'),
     path('dates/', views.date_choice, name='date_choice'),
-    path('', views.screening_choice, name='screening_choice')
+
 ]

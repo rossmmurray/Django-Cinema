@@ -32,10 +32,24 @@ def make_booking(selected_seat: Seat, request: HttpRequest):
 		selected_seat.save()
 
 		# create new booking record
-		new_booking = Booking(seat=selected_seat, user=request.user, cancelled=False)
+		new_booking = Booking(seat=selected_seat, user=request.user)
 		new_booking.save()
 		print("Created new booking:", new_booking)
 
 		return True
 	else:
 		return False
+
+
+def delete_booking(booking: Booking):
+	"""Delete booking and make seat available again"""
+
+	# delete booking record
+	booking.delete()
+
+	# free up the seat
+	re_available_seat = Seat.objects.get(id=booking.seat_id)
+	re_available_seat.available = True
+	re_available_seat.save()
+
+	return booking

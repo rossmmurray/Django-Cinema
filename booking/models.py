@@ -1,19 +1,25 @@
 from django.db import models
-from films.models import Seat
+from films.models import Seat, Screening
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from cinema.cinema_logger import logger
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class Booking(models.Model):
 	seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	cancelled = models.BooleanField()
 
 	def __str__(self):
 		return f"Booking by {self.user} of seat {self.seat.seat_no} for {self.seat.screening}."
 
+	def clean(self):
+		"""Validation: prevent modification of past bookings."""
+		screening_start = self.seat.screening.date_time
+		if screening_start < timezone.now():
+			raise ValidationError('You cannot modify past bookings.')
 
 # @receiver(post_save, sender=Seat)
 # def create_seats(sender, instance, created, update_fields, *args, **kwargs):
