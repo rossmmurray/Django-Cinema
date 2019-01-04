@@ -5,6 +5,7 @@ from django.db.models.query import QuerySet
 from typing import Iterable, List
 from booking.models import Booking
 from django.http.request import HttpRequest
+from django.utils import timezone
 
 
 def create_seat_layout(seats: QuerySet, seat_columns: int) -> List:
@@ -44,12 +45,21 @@ def make_booking(selected_seat: Seat, request: HttpRequest):
 def delete_booking(booking: Booking):
 	"""Delete booking and make seat available again"""
 
-	# delete booking record
-	booking.delete()
+	# get related screening time for bookingd
+	screening_start = booking.seat.screening.date_time
 
-	# free up the seat
-	re_available_seat = Seat.objects.get(id=booking.seat_id)
-	re_available_seat.available = True
-	re_available_seat.save()
+	# delete booking if it's in the future
+	if screening_start > timezone.now():
 
-	return booking
+		# delete booking
+		booking.delete()
+
+		# free up the seat
+		re_available_seat = Seat.objects.get(id=booking.seat_id)
+		re_available_seat.available = True
+		re_available_seat.save()
+
+		return True
+
+	else:
+		return False

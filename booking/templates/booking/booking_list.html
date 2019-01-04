@@ -12,9 +12,9 @@
         </div>
 
         {# show success message for deletion#}
-                {% if deleted_booking %}
-                    <div class="alert alert-danger text-center">
-                        The following item was deleted: {{ deleted_booking }}
+                {% if deletion_message %}
+                    <div class="alert alert-{{ delete_flag|yesno:"success,danger" }} text-center">
+                        {{ deletion_message }}
                     </div>
                 {% endif %}
 

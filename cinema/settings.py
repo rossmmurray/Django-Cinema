@@ -38,7 +38,8 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'films.apps.FilmsConfig',
 	'booking.apps.BookingConfig',
-	'crispy_forms'
+	'crispy_forms',
+	'django_extensions'
 
 ]
 

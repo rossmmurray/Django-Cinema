@@ -16,10 +16,11 @@ class Booking(models.Model):
 		return f"Booking by {self.user} of seat {self.seat.seat_no} for {self.seat.screening}."
 
 	def clean(self):
-		"""Validation: prevent modification of past bookings."""
+		"""Validation: prevent creation/modification of past bookings. This does not prevent deletions!"""
 		screening_start = self.seat.screening.date_time
 		if screening_start < timezone.now():
-			raise ValidationError('You cannot modify past bookings.')
+			print('raising the error!')
+			raise ValidationError('You cannot modify or create past bookings.')
 
 # @receiver(post_save, sender=Seat)
 # def create_seats(sender, instance, created, update_fields, *args, **kwargs):

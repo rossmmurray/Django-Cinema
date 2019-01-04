@@ -4,6 +4,7 @@ from booking.models import Booking
 from .booking_services import create_seat_layout, make_booking, delete_booking
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
+from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.detail import DetailView
@@ -59,19 +60,24 @@ class BookingDelete(ListView):
 
 		# TODO: permission the model so that only future bookings can be deleted
 		# TODO: more try excepts here
+		# TODO: check that booking is in the past
 
-		# delete the selected booking
+		# get booking id from user
 		selected_booking_id = request.POST.__getitem__('booking')
 		selected_booking = Booking.objects.get(id=selected_booking_id)
-		deleted_booking = delete_booking(selected_booking)
+
+		# delete booking if it's for the past
+		delete_flag = delete_booking(selected_booking)
+		deletion_message = 'Success! Booking deleted.' if delete_flag else 'Past bookings cannot be deleted.'
 
 		# get remaining user_bookings
 		user_bookings = Booking.objects.filter(user=self.request.user)
 
 		# return HttpResponseRedirect(reverse('manage_bookings', kwargs={
 		# 	'booking_list': user_bookings,
-		# 	'deleted_booking': deleted_booking}))
+		# 	'deletion_message': deletion_message}))
 
 		return render(request, 'booking/booking_list.html', {
 			'booking_list': user_bookings,
-			'deleted_booking': deleted_booking})
+			'deletion_message': deletion_message,
+			'delete_flag': delete_flag})

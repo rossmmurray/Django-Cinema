@@ -7,7 +7,6 @@ from cinema.cinema_logger import logger
 from film_services import screening_overlap
 
 
-# TODO: make film titles unique
 class Film(models.Model):
 	title = models.CharField(max_length=200, unique=True)
 	description = models.TextField()
@@ -25,7 +24,7 @@ class Screening(models.Model):
 	date_time = models.DateTimeField()
 
 	def __str__(self):
-		"""Nicely formatted representation of screenings"""
+		"""Nicely formatted text representation of screenings"""
 		return str(f'{self.film.title} at {self.date_time: %I:%M %p} on {self.date_time: %d/%m/%y }')
 
 	def get_date(self):
