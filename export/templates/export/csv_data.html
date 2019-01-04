@@ -1,0 +1,50 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% load crispy_forms_tags %}
+
+{#    <div class="container">#}
+{#        <div class="h3 pb-3 ">#}
+{#            <h3>Bookings</h3>#}
+{#        </div>#}
+{##}
+        {# show success message for deletion#}
+{#                {% if deletion_message %}#}
+{#                    <div class="alert alert-{{ delete_flag|yesno:"success,danger" }} text-center">#}
+{#                        {{ deletion_message }}#}
+{#                    </div>#}
+{#                {% endif %}#}
+{##}
+{#        <table class="flex-fill container-fluid table bg-white rounded">#}
+{#            <tbody class="table-striped">#}
+{#            {% for booking in booking_list %}#}
+{#                <tr>#}
+{##}
+{#                    <td class="p-1 px-1">#}
+{#                        {{ booking }}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        <form method="POST" action="{% url 'manage_bookings' %}">#}
+{#                            {% csrf_token %}#}
+{#                            <button type="submit" name="booking" value="{{ booking.id }}"#}
+{#                                    class="container-fluid btn btn-danger mx-1 py-2">#}
+{#                                delete#}
+{#                            </button>#}
+{#                        </form>#}
+{#                    </td>#}
+{#                </tr>#}
+{##}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{##}
+{#        </table>#}
+{#        <br/>#}
+
+
+
+
+{% endblock %}
+

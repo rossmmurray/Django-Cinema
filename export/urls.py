@@ -14,17 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.static import static
-from cinema import settings
-# from films.views import views
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('films/', include('films.urls')),
-	path('', include('films.urls')),
-	path('accounts/', include('accounts.urls')),
-	path('booking/', include('booking.urls')),
-	path('export/', include('export.urls'))
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('csv/', views.csv_data_export, name='csv_export_data'),
+]
