@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
+from django.core.validators import validate_email
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 def signup(request):
+	"""Page for user to create login"""
 	if request.method == 'POST':
 
 		# check passwords aren't the same
@@ -32,6 +38,7 @@ def signup(request):
 
 
 def login(request):
+	"""Login page."""
 	if request.method == 'POST':
 		user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user is not None:
@@ -44,6 +51,32 @@ def login(request):
 
 
 def logout(request):
+	"""Log out current user."""
 	if request.method == 'POST':
 		auth.logout(request)
-		return redirect('signup')
+		return redirect('login')
+
+# TODO: make so that this is login required
+# @login_required
+# def update_profile(request):
+# 	"""Let user update profile."""
+# 	return render(request, 'accounts/user_form.html')
+
+
+class UpdateProfile(SuccessMessageMixin, UpdateView):
+	model = User
+	fields = ['email', 'first_name', 'last_name']
+	template_name = 'accounts/user_form.html'
+	pk_url_kwarg = 'user_id'
+	success_message = 'Details updated!'
+	# success_url = reverse_lazy('update_profile')
+	# the template is user_form.html
+
+	def get_object(self, queryset=None):
+		return self.request.user
+
+	def get_success_url(self):
+		return reverse_lazy('update_profile')
+
+
+

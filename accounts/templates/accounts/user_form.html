@@ -1,0 +1,42 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load staticfiles %}
+
+    <h3>Update Details</h3>
+    </br>
+
+    {#    {% if form.email.errors != None %}#}
+    {% for message in messages %}
+        {% if message %}
+            <div class="container align-content-center">
+                <div class="alert alert-success text-center">
+                    <h3>{{ message }}</h3>
+                </div>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+    {#    {% endif %}#}
+
+    {% if not messages %}
+
+
+
+        <body>
+        <div class="align-content-center">
+            <div class="container rounded bg-white p-3 col-sm-6">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-info btn-block">Update</button>
+                </form>
+            </div>
+        </div>
+        </body>
+
+    {% endif %}
+
+{% endblock %}
