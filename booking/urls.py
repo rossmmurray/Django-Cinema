@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
-from booking.views import BookingDelete
+from booking.views import BookingDelete, History
 
 # TODO: decorate the class view with login_required here. see:
 # https://docs.djangoproject.com/en/2.1/topics/class-based-views/intro/#decorating-class-based-views
 urlpatterns = [
-    path('book_seat/<int:screening_id>/', views.book_seat, name='book_seats'),
-    path('manage_bookings/', BookingDelete.as_view(), name='manage_bookings')
+	path('book_seat/<int:screening_id>/', views.book_seat, name='book_seats'),
+	path('manage_bookings/', BookingDelete.as_view(), name='manage_bookings'),
+	path('booking_history/', History.as_view(), name='booking_history')
 ]

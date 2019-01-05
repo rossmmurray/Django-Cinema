@@ -43,7 +43,7 @@ def login(request):
 		user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user is not None:
 			auth.login(request, user)
-			return redirect('date_choice')
+			return redirect('screening_choice')
 		else:
 			return render(request, 'accounts/login.html', {'error': 'username or password is wrong'})
 	else:

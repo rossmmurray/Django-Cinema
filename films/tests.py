@@ -12,7 +12,7 @@ class IndexViewTests(TestCase):
 	def test_good_response(self):
 		"""Get a 200 back from the view"""
 		response = self.client.get(reverse('screening_choice'))
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_code, 302)
 
 
 class FilmTests(TestCase):

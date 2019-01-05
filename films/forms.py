@@ -12,4 +12,4 @@ class ScreeningDateForm(forms.Form):
 	for key, value_tuple in enumerate(screenings_list):
 		date_list.append((value_tuple[0], value_tuple[0]))
 
-	date_choice = forms.ChoiceField(choices=date_list)
+	date_choice = forms.ChoiceField(choices=date_list, widget=forms.Select(attrs={'class': 'wideInput'}))

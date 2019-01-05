@@ -1,0 +1,35 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% load crispy_forms_tags %}
+
+    <div class="container col-sm-9">
+        <div class="h3 pb-3  ">
+            <h3>Booking History</h3>
+        </div>
+
+        <table class="flex-fill container-fluid table bg-white rounded">
+            <tbody class="table-striped">
+            {% for booking in bookinghistory_list %}
+                <tr>
+
+                    <td class="p-1 px-3 py-2">
+                        {{ booking }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+
+        </table>
+        <br/>
+
+
+
+
+{% endblock %}
+

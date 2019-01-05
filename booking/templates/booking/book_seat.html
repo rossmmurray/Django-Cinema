@@ -6,10 +6,11 @@
 
     {% load crispy_forms_tags %}
 
-    <div class="container">
-        <div class="h3 pb-3 ">
+    <div class="container col-sm-7">
             <h3>Please choose a seat...</h3>
-        </div>
+            <div class="rounded bg-white border pt-2 px-2 my-3" style="width: 19rem;">
+                <h6 class="font-weight-normal">Available seats: {{ available_seats }}  |   Booked seats: {{ booked_seats }} </h6>
+            </div>
 
         {# show success or error message#}
         {% if booked == False %}

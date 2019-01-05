@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from films.models import Screening, Seat
-from booking.models import Booking
+from booking.models import Booking, BookingHistory
 from .booking_services import create_seat_layout, make_booking, delete_booking
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
+from export.export_services import get_seat_info
 
 
 @login_required
@@ -41,10 +42,23 @@ def book_seat(request, screening_id):
 	seat_columns = 6
 	seat_layout = create_seat_layout(seats, seat_columns)
 
+	# get total seat info
+	seat_info = get_seat_info(screening)
+
 	return render(request, 'booking/book_seat.html', {
 		'seat_layout': seat_layout,
 		'booked': booked,
-		'info': info})
+		'info': info,
+		'available_seats': seat_info['available'],
+		'booked_seats': seat_info['booked']})
+
+
+class History(ListView):
+	"""Simple page to show booking history."""
+
+	def get_queryset(self):
+		"""Get booking history for user."""
+		return BookingHistory.objects.filter(user=self.request.user)
 
 
 class BookingDelete(ListView):
@@ -67,7 +81,7 @@ class BookingDelete(ListView):
 		selected_booking = Booking.objects.get(id=selected_booking_id)
 
 		# delete booking if it's for the past
-		delete_flag = delete_booking(selected_booking)
+		delete_flag = delete_booking(selected_booking, self.request)
 		deletion_message = 'Success! Booking deleted.' if delete_flag else 'Past bookings cannot be deleted.'
 
 		# get remaining user_bookings
