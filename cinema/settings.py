@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from cinema.cinema_logger import logger
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -139,5 +140,5 @@ STATIC_URL = '/static/'
 try:
 	from .local_settings import *
 except ImportError:
-	print("didn't import local settings")
+	logger.info("didn't import local settings")
 	pass

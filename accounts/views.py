@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
-from django.core.validators import validate_email
 from django.contrib.messages.views import SuccessMessageMixin
 
 
@@ -56,20 +54,15 @@ def logout(request):
 		auth.logout(request)
 		return redirect('login')
 
+
 # TODO: make so that this is login required
-# @login_required
-# def update_profile(request):
-# 	"""Let user update profile."""
-# 	return render(request, 'accounts/user_form.html')
-
-
 class UpdateProfile(SuccessMessageMixin, UpdateView):
+	"""Page for updating email and name. Created using django generic class based views."""
 	model = User
 	fields = ['email', 'first_name', 'last_name']
 	template_name = 'accounts/user_form.html'
 	pk_url_kwarg = 'user_id'
 	success_message = 'Details updated!'
-	# success_url = reverse_lazy('update_profile')
 	# the template is user_form.html
 
 	def get_object(self, queryset=None):

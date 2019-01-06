@@ -2,17 +2,18 @@ from django.test import TestCase
 from django.urls import reverse
 from films.models import Film, Screening
 from django.core.files.uploadedfile import SimpleUploadedFile
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
+from accounts.tests import UserSetUp
 
 
-class IndexViewTests(TestCase):
+class IndexViewTests(UserSetUp):
 	def test_good_response(self):
 		"""Get a 200 back from the view"""
-		response = self.client.get(reverse('screening_choice'))
-		self.assertEqual(response.status_code, 302)
+		response = self.normal_user.get(reverse('screening_choice'))
+		self.assertEqual(response.status_code, 200)
 
 
 class FilmTests(TestCase):

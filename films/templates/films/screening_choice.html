@@ -17,7 +17,8 @@
                             <img class="card-img" src="{{ screening.film.image.url }}" height=300 width=300
                                  style="max-height: 100%; max-width: 100%; display: block;"/>
                             <div class="card-body">
-                                <p class="card-text">{{ screening }}</p>
+                                <p class="card-title font-weight-bold">{{ screening }}</p>
+                                <p class="card-text font-italic" style="font-size: small">{{ screening.film.summary }}</p>
                                 <a href="{% url 'book_seats' screening.id %}" class="btn btn-primary">Book</a>
                             </div>
                         </div>

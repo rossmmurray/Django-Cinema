@@ -38,9 +38,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav mr-auto">
                     {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'update_profile' %}">Update Profile</a>
-                        <a class="nav-item nav-link" href="{% url 'date_choice' %}">Choose Date</a>
                         <a class="nav-item nav-link" href="{% url 'screening_choice' %}">Screenings</a>
+                        <a class="nav-item nav-link" href="{% url 'date_choice' %}">Choose Date</a>
+                        <a class="nav-item nav-link" href="{% url 'update_profile' %}">Update Profile</a>
                         <a class="nav-item nav-link" href="{% url 'manage_bookings' %}">Manage Bookings</a>
                         <a class="nav-item nav-link" href="{% url 'booking_history' %}">History</a>
                         <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin</a>

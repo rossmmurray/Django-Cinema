@@ -1,10 +1,13 @@
 from django import forms
 from .models import Screening
-from datetime import date
+from django.utils.timezone import now
 
 
 class ScreeningDateForm(forms.Form):
-	screenings = Screening.objects.distinct('date_time__date')
+
+	# get screening dates in the future
+	screenings = Screening.objects.filter(date_time__gt=now())
+	screenings = screenings.distinct('date_time__date')
 	screenings_list = list(screenings.values_list('date_time__date'))
 
 	# convert queryset into right format for ChoiceField

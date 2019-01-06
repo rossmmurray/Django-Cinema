@@ -16,7 +16,7 @@ class Film(models.Model):
 		return self.title
 
 	def summary(self):
-		return f'{self.description[:50]}...'
+		return f'{self.description[:75]}...'
 
 
 class Screening(models.Model):
