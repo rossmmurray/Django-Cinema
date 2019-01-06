@@ -1,0 +1,5 @@
+[FORMAT]
+indent-string=\t
+
+[MESSAGES CONTROL]
+disable=C0330,C0111

@@ -1,3 +1,4 @@
+"""All tests for accounts app"""
 from django.test import TestCase
 from django.urls import reverse
 from django.test import Client
@@ -27,13 +28,15 @@ class LoginSignupTests(TestCase):
 	def test_existing_username_signup(self):
 		"""Try signup with same username twice - should return error"""
 		user_details = {
-			'username': "test2",
-			'password': "testing1234",
-			'password-confirmation': "testing1234"
+						'username': "test2",
+						'password': "testing1234",
+						'password-confirmation': "testing1234"
 		}
 		self.client.post(reverse('signup'), user_details)
 		response = self.client.post(reverse('signup'), user_details)
 		self.assertEqual(response.context['error'], 'Username already exists')
+
+# 	TODO: Create some login tests
 
 
 class UserSetUp(TestCase):
@@ -46,6 +49,7 @@ class UserSetUp(TestCase):
 
 
 class UpdateProfile(UserSetUp):
+	"""Test amending user details."""
 
 	def test_update_profile_page_get(self):
 		"""get to update_profile page as logged in user"""
@@ -55,10 +59,10 @@ class UpdateProfile(UserSetUp):
 	def test_email_validation(self):
 		"""Test updating to valid and invalid emails"""
 		email_tests_and_results = {
-			'testing2@gmail.com': 'testing2@gmail.com',
-			'testing.com': '',
-			'blah': '',
-			'ross@yahoo.com': 'ross@yahoo.com'
+						'testing2@gmail.com': 'testing2@gmail.com',
+						'testing.com': '',
+						'blah': '',
+						'ross@yahoo.com': 'ross@yahoo.com'
 		}
 
 		for email, result in email_tests_and_results.items():
@@ -69,12 +73,3 @@ class UpdateProfile(UserSetUp):
 			# blank out previous email
 			self.user_model.email = ''
 			self.user_model.save()
-
-
-
-
-
-
-
-
-

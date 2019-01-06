@@ -7,11 +7,13 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from accounts.tests import UserSetUp
+from tempfile import mkdtemp
+from django.conf import settings
 
 
 class IndexViewTests(UserSetUp):
 	def test_good_response(self):
-		"""Get a 200 back from the view"""
+		"""Get a 200 HTTP response back from the view"""
 		response = self.normal_user.get(reverse('screening_choice'))
 		self.assertEqual(response.status_code, 200)
 
@@ -19,36 +21,37 @@ class IndexViewTests(UserSetUp):
 class FilmTests(TestCase):
 	def setUp(self):
 		"""Create a film object to be used in other tests"""
-		image_path = '/Users/rossmurray/Uni/IntroPython/coursework/cinema/test_images/thelma.jpg'
-		new_image = SimpleUploadedFile(name='thelma.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
 
-		# N.B. object.create saves to database immediately
-		new_film = Film.objects.create(
+		# create a temporary directory so the real media dir doesn't get full
+		settings.MEDIA_ROOT = mkdtemp()
+
+		# sample image
+		image_path = '/Users/rossmurray/Uni/IntroPython/coursework/cinema/films/test_images/thelma.jpg'
+		self.new_image = SimpleUploadedFile(name='thelma.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+
+		# saves new image to test database immediately
+		Film.objects.create(
 			title='Thelma and Louise',
 			description="Somebody said get a life...so they did. In Ridley Scott's adventurous road picture.",
-			image=new_image
+			image=self.new_image
 		)
 
 	def test_new_film(self):
 		"""Test creating second film in database"""
-		image_path = '/Users/rossmurray/Uni/IntroPython/coursework/cinema/test_images/thelma.jpg'
-		new_image = SimpleUploadedFile(name='thelma.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
 		new_film = Film(
 			title='Batman and Robin',
 			description="Batman tries to save Gotham.",
-			image=new_image
+			image=self.new_image
 		)
 		self.assertEqual(new_film.clean(), None)
 		new_film.save()
 
 	def test_duplicate_film(self):
 		"""Test film creation with the same title"""
-		image_path = '/Users/rossmurray/Uni/IntroPython/coursework/cinema/test_images/thelma.jpg'
-		new_image = SimpleUploadedFile(name='thelma.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
 		new_film = Film(
 			title='Thelma and Louise',
 			description="Somebody said get a life...so they did. In Ridley Scott's adventurous road picture.",
-			image=new_image
+			image=self.new_image
 		)
 		with self.assertRaises(IntegrityError):
 			new_film.save()

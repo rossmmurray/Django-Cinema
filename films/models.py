@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from cinema.cinema_logger import logger
-from film_services import screening_overlap
+from films.film_services import screening_overlap
 
 
 class Film(models.Model):
@@ -33,6 +33,10 @@ class Screening(models.Model):
 
 	def clean(self):
 		"""Validation: automatically run when screening objects are modified/created"""
+
+		# exit if nothing is entered
+		if self.date_time is None:
+			return True
 
 		# screenings must be in the future
 		if self.date_time < timezone.now():
