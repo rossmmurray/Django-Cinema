@@ -36,8 +36,6 @@ class LoginSignupTests(TestCase):
 		response = self.client.post(reverse('signup'), user_details)
 		self.assertEqual(response.context['error'], 'Username already exists')
 
-# 	TODO: Create some login tests
-
 
 class UserSetUp(TestCase):
 	"""Login and test profile updates"""

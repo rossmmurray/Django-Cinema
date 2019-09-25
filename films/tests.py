@@ -1,14 +1,14 @@
+from datetime import timedelta
+from tempfile import mkdtemp
 from django.test import TestCase
 from django.urls import reverse
-from films.models import Film, Screening
 from django.core.files.uploadedfile import SimpleUploadedFile
-from datetime import timedelta
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
-from accounts.tests import UserSetUp
-from tempfile import mkdtemp
 from django.conf import settings
+from films.models import Film, Screening
+from accounts.tests import UserSetUp
 
 
 class IndexViewTests(UserSetUp):
@@ -27,7 +27,10 @@ class FilmTests(TestCase):
 
 		# sample image
 		image_path = '/Users/rossmurray/Uni/IntroPython/coursework/cinema/films/test_images/thelma.jpg'
-		self.new_image = SimpleUploadedFile(name='thelma.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+		self.new_image = SimpleUploadedFile(
+			name='thelma.jpg',
+			content=open(image_path, 'rb').read(),
+			content_type='image/jpeg')
 
 		# saves new image to test database immediately
 		Film.objects.create(
@@ -77,7 +80,3 @@ class FilmTests(TestCase):
 		new_screening = Screening(film=new_film, date_time=time)
 		with self.assertRaises(ValidationError):
 			new_screening.clean()
-
-
-
-

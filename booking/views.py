@@ -1,22 +1,17 @@
 from django.shortcuts import render, get_object_or_404
-from films.models import Screening, Seat
-from booking.models import Booking, BookingHistory
-from .booking_services import create_seat_layout, make_booking, delete_booking
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
-from django.utils import timezone
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import DeleteView
+from booking.models import Booking, BookingHistory
+from films.models import Screening, Seat
 from export.export_services import get_seat_info
+from .booking_services import create_seat_layout, make_booking, delete_booking
 
 
 @login_required
 def book_seat(request, screening_id):
-	"""Booking page view"""
+	"""Display booking page. Get and Layout all seats"""
 
-	# set up initial booking variables to pass to template
+	# initialise booking variables to pass to template
 	info = ''
 	booked = None
 
@@ -42,7 +37,7 @@ def book_seat(request, screening_id):
 	seat_columns = 6
 	seat_layout = create_seat_layout(seats, seat_columns)
 
-	# get total seat info
+	# get information on total number of available/booked seats
 	seat_info = get_seat_info(screening)
 
 	return render(request, 'booking/book_seat.html', {
@@ -72,10 +67,6 @@ class BookingDelete(ListView):
 	def post(self, request):
 		"""Actions to perform on post request (booking deletion)."""
 
-		# TODO: permission the model so that only future bookings can be deleted
-		# TODO: more try excepts here
-		# TODO: check that booking is in the past
-
 		# get booking id from user
 		selected_booking_id = request.POST.__getitem__('booking')
 		selected_booking = Booking.objects.get(id=selected_booking_id)
@@ -86,10 +77,6 @@ class BookingDelete(ListView):
 
 		# get remaining user_bookings
 		user_bookings = Booking.objects.filter(user=self.request.user)
-
-		# return HttpResponseRedirect(reverse('manage_bookings', kwargs={
-		# 	'booking_list': user_bookings,
-		# 	'deletion_message': deletion_message}))
 
 		return render(request, 'booking/booking_list.html', {
 			'booking_list': user_bookings,

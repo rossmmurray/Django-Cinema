@@ -1,8 +1,7 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 import csv
-from export.export_services import get_cinema_data
+from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from export.export_services import get_cinema_data
 
 
 @staff_member_required

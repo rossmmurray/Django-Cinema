@@ -30,5 +30,3 @@ def get_seat_info(screening: Screening) -> dict:
 	seat_info['booked'] = seats.filter(available=False).count()
 
 	return seat_info
-
-

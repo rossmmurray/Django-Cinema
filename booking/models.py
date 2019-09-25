@@ -1,14 +1,12 @@
 from django.db import models
-from films.models import Seat, Screening
 from django.contrib.auth.models import User
-from django.dispatch import receiver
-from django.db.models.signals import post_save
-from cinema.cinema_logger import logger
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from films.models import Seat
 
 
 class Booking(models.Model):
+	"""Holds booking records"""
 	seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -24,10 +22,10 @@ class Booking(models.Model):
 
 
 class BookingHistory(models.Model):
+	"""Holds booking creation and deletion actions"""
 	action = models.TextField()
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	action_time = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return f"{self.action} at {self.action_time:%I:%M %p} on {self.action_time:%d/%m/%y}'"
-

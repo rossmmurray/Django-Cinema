@@ -8,6 +8,7 @@ from films.film_services import screening_overlap
 
 
 class Film(models.Model):
+	"""Film model/table"""
 	title = models.CharField(max_length=200, unique=True)
 	description = models.TextField()
 	image = models.ImageField(upload_to='images/')
@@ -16,10 +17,12 @@ class Film(models.Model):
 		return self.title
 
 	def summary(self):
+		"""Return limited film description"""
 		return f'{self.description[:75]}...'
 
 
 class Screening(models.Model):
+	"""Screening model/table"""
 	film = models.ForeignKey(Film, on_delete=models.CASCADE)
 	date_time = models.DateTimeField()
 
@@ -44,7 +47,6 @@ class Screening(models.Model):
 
 		# screenings cannot overlap
 		overlapping_screenings = screening_overlap(self.date_time, Screening.objects.all())
-		# test = overlapping_screenings[0]
 		if overlapping_screenings:
 			error_message = f"The screening clashed with the existing screening: {overlapping_screenings[0]}. The " \
 							f"screening wasn't added."
@@ -55,6 +57,7 @@ class Screening(models.Model):
 
 
 class Seat(models.Model):
+	"""Seat model/table"""
 	seat_no = models.IntegerField()
 	screening = models.ForeignKey(Screening, on_delete=models.CASCADE)
 	available = models.BooleanField()

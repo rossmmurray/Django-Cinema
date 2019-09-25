@@ -1,11 +1,12 @@
 """ Helper functions for booking app"""
 
-from films.models import Seat
+from typing import List
 from django.db.models.query import QuerySet
-from typing import Iterable, List
-from booking.models import Booking, BookingHistory
 from django.http.request import HttpRequest
 from django.utils import timezone
+from films.models import Seat
+from booking.models import Booking, BookingHistory
+from cinema.cinema_logger import logger
 
 
 def create_seat_layout(seats: QuerySet, seat_columns: int) -> List:
@@ -37,15 +38,16 @@ def make_booking(selected_seat: Seat, request: HttpRequest):
 		# create new booking record
 		new_booking = Booking(seat=selected_seat, user=request.user)
 		new_booking.save()
-		print("Created new booking:", new_booking)
+		logger.info(f"Created new booking: {new_booking}")
+
+		# record action in booking history
 		BookingHistory.objects.create(
 			action=f'Created: "{new_booking}"',
 			user=request.user
 		)
-
 		return True
-	else:
-		return False
+
+	return False
 
 
 def delete_booking(booking: Booking, request: HttpRequest):
@@ -65,12 +67,11 @@ def delete_booking(booking: Booking, request: HttpRequest):
 		re_available_seat.available = True
 		re_available_seat.save()
 
+		# record action in booking history
 		BookingHistory.objects.create(
 			action=f'Deleted: "{booking}"',
 			user=request.user
 		)
-
 		return True
 
-	else:
-		return False
+	return False
