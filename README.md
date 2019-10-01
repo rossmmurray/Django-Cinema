@@ -4,7 +4,7 @@ Welcome to...
 
 ![ROMURR Cinemas Logo](screenshots/rc_logo.png?raw=true "Logo")
 
-A concept for a cinema booking website created using Python + Django. Instructions on how to run the app are at the bottom of the README.
+A cinema booking website created using Python + Django. Instructions on how to run the app are at the bottom of the README.
 
 Login page:
 
