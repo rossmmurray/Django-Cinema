@@ -1,6 +1,6 @@
 astroid==2.1.0
 coverage==4.5.2
-Django==2.1.4
+Django==2.2.13
 django-crispy-forms==1.7.2
 django-extensions==2.1.4
 flake8==3.6.0
